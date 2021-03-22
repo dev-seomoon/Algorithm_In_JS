@@ -2,7 +2,6 @@
 #include <unistd.h>
 #include <stdarg.h>
 
-#include <stdio.h>
 int			ft_isdigit(char c)
 {
 	if (c >= '0' && c <= '9')
@@ -15,7 +14,7 @@ int			ft_numlen(int num)
 	int		i;
 
 	i = 1;
-	while (num /= 10 > 0)
+	while (num /= 10)
 		i++;
 	return (i);
 }
@@ -25,7 +24,7 @@ int			ft_hexlen(unsigned int num)
 	int		i;
 
 	i = 1;
-	while (num /= 16 > 0)
+	while (num /= 16)
 		i++;
 	return (i);
 }
@@ -51,16 +50,6 @@ void		ft_putnbr_base(long long num, int base)
 	}
 }
 
-int			ft_strlen(char *s)
-{
-	int		i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
 void		ft_putnstr(char *s, int len)
 {
 	int		i;
@@ -73,33 +62,14 @@ void		ft_putnstr(char *s, int len)
 	}
 }
 
-char		*ft_strndup(char *s, int len)
-{
-	int		i;
-	char	*s2;
-
-	if (!(s2 = malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	i = 0;
-	while (s[i] && i < len)
-	{
-		s2[i] = s[i];
-		i++;
-	}
-	s2[i] = '\0';
-	return (s2);
-}
-
-char		*find_type_identifier(char *s)
+int			ft_strlen(char *s)
 {
 	int		i;
 
 	i = 0;
-	while (s[i] && (ft_isdigit(s[i]) || s[i] == '.'))
+	while (s[i])
 		i++;
-	if (s[i] == 's' || s[i] == 'd' || s[i] == 'x')
-		return (s + i);
-	return (NULL);
+	return (i);
 }
 
 int			print_flags(char *flags, char type, va_list ap)
@@ -141,7 +111,7 @@ int			print_flags(char *flags, char type, va_list ap)
 		len = ft_strlen(str);
 		if (dot)
 		{
-			if (len < precision)
+			if (precision > len)
 				precision = len;
 		}
 		else
@@ -205,10 +175,39 @@ int			print_flags(char *flags, char type, va_list ap)
 		if (type == 'd')
 			ft_putnbr_base(num, 10);
 		else if (type == 'x')
-			ft_putnbr_base(num, 16);
+			ft_putnbr_base(u_num, 16);
 	}
 	free(flags);
 	return (count);
+}
+
+char		*ft_strndup(char *s, int len)
+{
+	int		i;
+	char	*s2;
+
+	if (!(s2 = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = 0;
+	while (s[i] && i < len)
+	{
+		s2[i] = s[i];
+		i++;
+	}
+	s2[i] = '\0';
+	return (s2);
+}
+
+char		*find_type_identifier(char *s)
+{
+	int		i;
+
+	i = 0;
+	while (s[i] && (ft_isdigit(s[i]) || s[i] == '.'))
+		i++;
+	if (s[i] == 's' || s[i] == 'd' || s[i] == 'x')
+		return (s + i);
+	return (NULL);
 }
 
 int			check_format(va_list ap, char *s)
@@ -255,9 +254,4 @@ int			ft_printf(const char *s, ...)
 	count = check_format(ap, (char *)s);
 	va_end(ap);
 	return (count);
-}
-
-int	main()
-{
-	ft_printf("%d", 42);
 }
