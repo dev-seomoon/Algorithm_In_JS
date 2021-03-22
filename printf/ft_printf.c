@@ -147,6 +147,7 @@ int			print_flags(char *flags, char type, va_list ap)
 				count++;
 				i++;
 			}
+			free(flags);
 			return (count);
 		}
 		if (precision < len)
