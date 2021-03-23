@@ -89,6 +89,20 @@ char *ft_strjoin(char *s1, char *s2)
  return (str);
 }
 
+int check_nl(char *backup)
+{
+ int i;
+
+ i = 0;
+ while (backup[i])
+ {
+  if (backup[i] == '/n')
+   return (i);
+  i++;
+ }
+ return (-1);
+}
+
 int backup_to_line(char **backup, char **line, int i)
 {
  char *tmp;
