@@ -7,8 +7,8 @@
 
 ## VSCode에서 실행하기
 1) 문제집 폴더에 `npm install fs --save` 로 fs 모듈 설치
-2) js 파일 작성
-3) 입력 예제 파일 작성
+2) js 파일 작성 `filename.js`
+3) 입력 예제 파일 작성 `example.text`
 4) VSCode 터미널에서 `node filename.js`로 실행
 <br /> 
 
