@@ -1,4 +1,4 @@
-# BOJ_Algorithm_JS
+# Algorithm_In_JS
 
 
 [백준 바킹독 실전 알고리즘 문제집](https://github.com/encrypted-def/basic-algo-lecture/blob/master/workbook.md), [프로그래머스 코딩테스트 연습](https://programmers.co.kr/learn/challenges)  
